@@ -21,10 +21,6 @@ class App extends Component {
 	async componentDidMount() {
 		self = this;
 		self.loadNewPictures();
-		self.setState({
-			catVotes: await this.getVotes("cat"),
-			dogVotes: await this.getVotes("dog"),
-		})
 	}
 
 	async loadNewPictures() {
@@ -55,55 +51,22 @@ class App extends Component {
 		});
 	}
 
-	async getVotes(name) {
-		let score;
-		let getURL = "http://dreamlo.com/lb/5ec2880d0cf2aa0c28423922/json"
-		await fetch(getURL)
-			.then(res => res.json())
-			.then(json => {
-				if (json.dreamlo.leaderboard == null) {
-					self.setVotes(name, 0);
-					score = 0;
-				} else {
-					let entries = json.dreamlo.leaderboard.entry;
-					entries = entries.filter((value) => {
-						if (value.name == name) return true
-						else return false
-					});
-					score = Number(entries[0].score);
-				}
-			});
-
-		return score;
-	}
-	setVotes(name, score) {
-		let setURL = "http://dreamlo.com/lb/rB0P6BG4_0y6ODkGEkwiBQyiBo5yCdykaB3uR9hY74_g/add/" +
-			name + "/" + score;
-		fetch(setURL)
-	}
-	async updateVotes() {
-		let catScore = await self.getVotes("cat");
-		let dogScore = await self.getVotes("dog");
-		self.setState({
-			catVotes: catScore,
-			dogVotes: dogScore,
-		});
-	}
-
 	async addVoteCat() {
-		let score = await self.getVotes("cat");
-		score++;
-		self.setVotes("cat", score);
+		let { catVotes: catScore } = self.state;
 
-		self.updateVotes();
+		self.setState({
+			catVotes: catScore + 1,
+		});
+
 		self.loadNewPictures();
 	}
 	async addVoteDog() {
-		let score = await self.getVotes("dog");
-		score++;
-		self.setVotes("dog", score);
+		let { dogVotes: dogScore } = self.state;
 
-		self.updateVotes();
+		self.setState({
+			dogVotes: dogScore + 1,
+		});
+
 		self.loadNewPictures();
 	}
 
