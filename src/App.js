@@ -21,6 +21,7 @@ class App extends Component {
 	async componentDidMount() {
 		self = this;
 		self.loadNewPictures();
+		self.updateVotesTxt();
 	}
 
 	async loadNewPictures() {
@@ -51,25 +52,51 @@ class App extends Component {
 		});
 	}
 
+	async incrementVotes(name) {
+		let score = 0;
+		let url = "https://api.countapi.xyz/hit/catVSdogTBchip/" + name;
+		await fetch(url)
+			.then(res => res.json())
+			.then(json => {
+				score = json.value;
+			})
+
+		return score;
+	}
 	async addVoteCat() {
-		let { catVotes: catScore } = self.state;
+		await self.incrementVotes("cat");
 
-		self.setState({
-			catVotes: catScore + 1,
-		});
-
+		self.updateVotesTxt();
 		self.loadNewPictures();
 	}
 	async addVoteDog() {
-		let { dogVotes: dogScore } = self.state;
+		await self.incrementVotes("dog");
 
-		self.setState({
-			dogVotes: dogScore + 1,
-		});
-
+		self.updateVotesTxt();
 		self.loadNewPictures();
 	}
 
+	async updateVotesTxt() {
+		let catScore = 0;
+		let dogScore = 0;
+
+		let url = "https://api.countapi.xyz/get/catVSdogTBchip/";
+		await fetch(url + "cat")
+			.then(res => res.json())
+			.then(json => {
+				catScore = json.value;
+			});
+		await fetch(url + "dog")
+			.then(res => res.json())
+			.then(json => {
+				dogScore = json.value;
+			});
+
+		self.setState({
+			catVotes: catScore,
+			dogVotes: dogScore,
+		});
+	}
 
 	render() {
 		var { catPictureURL, dogPictureURL, catVotes, dogVotes } = this.state;
