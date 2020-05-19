@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "37855c8f3fbc03440f5a35e79f0fddae",
+    "revision": "552cd8d04e9ed32635bfb12e5da539ba",
     "url": "/catVSdog/index.html"
   },
   {
-    "revision": "acb70c7259c96bf52990",
+    "revision": "02a1710c0a2453253c54",
     "url": "/catVSdog/static/css/main.1fb7528c.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/catVSdog/static/js/2.45fcb7f2.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "acb70c7259c96bf52990",
-    "url": "/catVSdog/static/js/main.91dcffd3.chunk.js"
+    "revision": "02a1710c0a2453253c54",
+    "url": "/catVSdog/static/js/main.16c54273.chunk.js"
   },
   {
     "revision": "457ab3372961bcc657fb",
