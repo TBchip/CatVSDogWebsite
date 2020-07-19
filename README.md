@@ -1,2 +1,2 @@
 # catVSdog
-https://tbchip.github.io/catVSdog/
+https://tbchip.github.io/CatVSDogWebsite/
